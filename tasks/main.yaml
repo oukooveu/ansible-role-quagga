@@ -1,0 +1,39 @@
+---
+- name: install quagga
+  package:
+    name: quagga
+    state: present
+
+- name: enable zebra_write_config selinux boolean
+  seboolean:
+    name: zebra_write_config
+    state: yes
+    persistent: yes
+
+- name: create zebra configuration
+  template:
+    src: zebra.conf
+    dest: "{{ quagga_conf_dir }}/zebra.conf"
+    owner: "{{ quagga_uid }}"
+    group: "{{ quagga_gid }}"
+    mode: '0640'
+  notify: restart zebra service
+
+- name: create daemons configuration
+  when: item.value.enabled
+  template:
+    src: daemon.conf
+    dest: "{{ quagga_conf_dir }}/{{ item.key }}.conf"
+    owner: "{{ quagga_uid }}"
+    group: "{{ quagga_gid }}"
+    mode: '0640'
+  loop: "{{ quagga_conf | dict2items }}"
+  notify: "restart {{ item.key }} service"
+
+- name: enable and start daemon service
+  when: item.value.enabled
+  service:
+    name: "{{ item.key }}"
+    state: started
+    enabled: yes
+  loop: "{{ quagga_conf | dict2items }}"

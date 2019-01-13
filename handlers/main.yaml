@@ -1,0 +1,36 @@
+---
+- name: restart zebra service
+  service:
+    name: zebra
+    state: restarted
+
+- name: restart bgpd service
+  service:
+    name: bgpd
+    state: restarted
+
+- name: restart isisd service
+  service:
+    name: isisd
+    state: restarted
+
+- name: restart ospf6d service
+  service:
+    name: ospf6d
+    state: restarted
+
+- name: restart ospfd service
+  service:
+    name: ospfd
+    state: restarted
+
+- name: restart ripd service
+  service:
+    name: ripd
+    state: restarted
+
+- name: restart ripngd service
+  service:
+    name: ripngd
+    state: restarted
+

@@ -1,0 +1,10 @@
+---
+quagga_uid: quagga
+quagga_gid: quagga
+quagga_log_dir: /var/log/quagga
+quagga_conf_dir: /etc/quagga
+quagga_use_syslog: no
+quagga_conf: { }
+quagga_hostname: 'router'
+quagga_password: 'zebra'
+quagga_enable_password: 'zebra'
