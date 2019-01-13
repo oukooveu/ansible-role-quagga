@@ -4,6 +4,11 @@
     name: quagga
     state: present
 
+- name: install libsemanage-python
+  package:
+    name: libsemanage-python
+    state: present
+
 - name: enable zebra_write_config selinux boolean
   seboolean:
     name: zebra_write_config
